@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "centos/8"
+  config.vm.box_url = "https://app.vagrantup.com/centos/boxes/8"
+
+  # Install net-rools for all machines
+  config.vm.provision "shell", inline: <<-SHELL
+    yum install -y net-tools
+  SHELL
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 1024
+    vb.cpus = 1
+  end
+
+
+  # Server
+  config.vm.define "vurrigonS" do |control|
+  	control.vm.hostname = "vurrigonS"
+  	control.vm.network "private_network", ip: "192.168.42.110"
+
+  	control.vm.provider "virtualbox" do |v|
+  		v.name = "vurrigonS"
+  	end
+
+  end
+
+  # ServerWorker
+  config.vm.define "vurrigonSW" do |control|
+  	control.vm.hostname = "vurrigonSW"
+  	control.vm.network "private_network", ip: "192.168.42.111"
+
+	control.vm.provider "virtualbox" do |v|
+  		v.name = "vurrigonSW"
+  	end
+
+  end
+end
