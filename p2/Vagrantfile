@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+SERVER_IP = "192.168.42.110"
+INSTALL_PACKAGES_PATH = "scripts/install_packages.sh"
+K3S_MASTER_PATH = "scripts/k3s_master.sh"
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "centos/8"
+  config.vm.box_url = "https://app.vagrantup.com/centos/boxes/8"
+ы
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 1024
+    vb.cpus = 1
+  end
+
+  # Server
+  config.vm.define "vurrigonS" do |control|
+  	control.vm.hostname = "vurrigonS"
+  	control.vm.network "private_network", ip: SERVER_IP
+
+  	control.vm.provider "virtualbox" do |v|
+  		v.name = "vurrigonS"
+  	end
+
+  	control.vm.provision "shell", privileged: true,  path: INSTALL_PACKAGES_PATH
+  	control.vm.provision "shell", privileged: true,  path: K3S_MASTER_PATH
+
+  end
+end
