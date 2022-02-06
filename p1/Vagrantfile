@@ -11,8 +11,8 @@ K3S_AGENT_PATH = "scripts/k3s_agent.sh"
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "centos/8"
-  config.vm.box_url = "https://app.vagrantup.com/centos/boxes/8"
+  config.vm.box = "centos/7"
+  config.vm.box_url = "https://app.vagrantup.com/centos/boxes/7"
   config.vbguest.installer_options = { allow_kernel_upgrade: true }
 
   config.vm.provider "virtualbox" do |vb|

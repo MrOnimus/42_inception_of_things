@@ -20,3 +20,5 @@ spec:
         env:
         - name: MESSAGE
           value: Hello from app2.
+        - name: PORT
+          value: "2121"

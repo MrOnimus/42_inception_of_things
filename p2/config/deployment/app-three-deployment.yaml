@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-one
+  name: app-three
 spec:
   selector:
     matchLabels:
-      app: app-one
+      app: app-three
   replicas: 1
   template:
     metadata:
       labels:
-        app: app-one
+        app: app-three
     spec:
       containers:
       - name: hello-kubernetes
@@ -19,4 +19,6 @@ spec:
         - containerPort: 2121
         env:
         - name: MESSAGE
-          value: Hello from app1.
+          value: Hello from app3.
+        - name: PORT
+          value: "2121"

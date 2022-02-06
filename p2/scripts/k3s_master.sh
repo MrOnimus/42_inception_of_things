@@ -12,8 +12,8 @@ echo "Setting up aliase..."
 echo "alias k='kubectl'" >> /home/vagrant/.bashrc
 
 echo "Creating Deployments..."
-k apply -f /vagrant/config/app-*-deployment.yaml
+/usr/local/bin/kubectl apply -f /vagrant/config/deployment/
 echo "Creating Services..."
-k apply -f /vagrant/config/services.yaml
+/usr/local/bin/kubectl apply -f /vagrant/config/services.yaml
 echo "Creating Ingress Route...."
-k apply -f /vagrant/config/ingress.yaml
+/usr/local/bin/kubectl apply -f /vagrant/config/ingress.yaml

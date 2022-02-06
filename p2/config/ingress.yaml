@@ -1,24 +1,47 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: k3s-apps-demo
-  namespace: default
+  name: ingress-demo
+  annotations:
+    kubernetes.io/ingress.class: traefik
 spec:
-  entryPoints:
-    - web
-  routes:
-  - kind: Rule
-    match: Host(`app1.com`)
-    services:
-      name: app-one
-      port: 80
-  - kind: Rule
-    match: Host(`app2.com`)
-    services:
-      name: app-two
-      port: 80
-  - kind: Rule
-    match: Host(`app3.com`)
-    services:
-      name: app-three
-      port: 80
+  rules:
+  - host: app1.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+            service:
+                name: app-one
+                port: 
+                    number: 80
+  - host: app2.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+            service:
+                name: app-two
+                port: 
+                    number: 80
+  - host: app3.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+            service:
+                name: app-three
+                port: 
+                    number: 80
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+            service:
+                name: app-three
+                port: 
+                    number: 80
