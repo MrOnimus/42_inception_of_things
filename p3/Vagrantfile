@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+SERVER_IP = "192.168.56.110"
+CONFIGURE_PATH = "scripts/install_packages.sh"
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "centos/7"
+  config.vm.box_url = "https://app.vagrantup.com/centos/boxes/7"
+  config.vbguest.installer_options = { allow_kernel_upgrade: true }
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+  # Server
+  config.vm.define "rdremoraS" do |control|
+  	control.vm.hostname = "rdremoraS"
+  	control.vm.network "private_network", ip: SERVER_IP
+    control.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+
+  	control.vm.provider "virtualbox" do |v|
+  		v.name = "rdremoraS"
+  	end
+
+  	control.vm.provision "shell", privileged: true, path: CONFIGURE_PATH
+
+  end
+end
